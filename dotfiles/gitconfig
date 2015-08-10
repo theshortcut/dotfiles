@@ -1,0 +1,72 @@
+[alias]
+    co = checkout
+    b = branch
+    fixup = !sh -c 'git commit -m \"fixup! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+    fi = !sh -c 'git commit -m \"fixup! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+    squash = !sh -c 'git commit -m \"squash! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+    ri = rebase --interactive --autosquash
+    prp = !git pull --rebase && git push
+    ciam = commit --am -C HEAD
+    praise = blame
+    st = status -sb
+    s = status -s
+    suri = submodule update --init --recursive
+    sui = submodule update --init
+    su = submodule update
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)%Creset' --abbrev-commit
+    ci = commit
+    ready = rebase -i @{u}
+    standup = !git log --since yesterday --author `git config user.email` --pretty=short
+    purr = pull --rebase
+    switch = !legit switch \"$@\"
+    branches = !legit branches
+    sprout = !legit sprout \"$@\"
+    unpublish = !legit unpublish \"$@\"
+    harvest = !legit harvest \"$@\"
+    sync = !legit sync \"$@\"
+    publish = !legit publish \"$@\"
+    graft = !legit graft \"$@\"
+    aliases = config --get-regexp ^alias\\.
+[branch]
+    autosetupmerge = true
+[gui]
+    matchtrackingbranch = true
+    pruneduringfetch = true
+    fontui = -family Tahoma -size 13 -weight normal -slant roman -underline 0 -overstrike 0
+	recentrepo = /Users/clay/src/spingo/add-event-ui
+[color]
+    status = auto
+    branch = auto
+    diff = auto
+[apply]
+    whitespace = warn
+[push]
+    default = current
+[merge]
+    tool = sourcetree
+[mergetool "sourcetree"]
+    keepBackup = false
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+
+[user]
+    name = Clayton Ferris
+    email = cferris@gmail.com
+[core]
+    excludesfile = /Users/clay/.gitignore
+    editor = vim
+[push]
+    default = current
+[alias]
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
+[mergetool "sourcetree"]
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+[filter "media"]
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
+[commit]
+    template = /Users/clay/.git-commit-template.txt

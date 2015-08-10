@@ -1,0 +1,7 @@
+---
+- name: Symlink dotfiles
+  file: src={{ ansible_env.PWD }}/dotfiles/{{ item }}
+        dest={{ ansible_user_dir }}/.{{ item }}
+        state=link
+        force=yes
+  with_lines: ls {{ ansible_env.PWD }}/dotfiles/

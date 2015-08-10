@@ -1,0 +1,14 @@
+---
+- name: Update Homebrew
+  homebrew: update_homebrew=yes
+
+- name: Install Homebrew formula
+  homebrew: name={{ item }} state=latest
+  with_items:
+    - git
+    - wget
+    - curl
+    - coreutils
+
+- name: Cleanup Homebrew
+  command: brew cleanup
