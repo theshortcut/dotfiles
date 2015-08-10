@@ -9,6 +9,14 @@
     - wget
     - curl
     - coreutils
+    - emacs
+    - fish
+    - legit
+    - jq
+    - reattach-to-user-namespace
+    - the_silver_searcher
+    - tmux
+    - watchman
 
 - name: Cleanup Homebrew
   command: brew cleanup

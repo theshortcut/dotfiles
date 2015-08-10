@@ -1,0 +1,10 @@
+---
+- name: Install NVM
+  git: dest={{ ansible_user_dir }}/.nvm
+       repo=https://github.com/creationix/nvm.git
+       refspec=v0.25.4
+
+- name: Install NVM fish wrapper
+  git: dest={{ ansible_user_dir }}/.config/fish/nvm-wrapper
+       repo=https://github.com/passcod/nvm-fish-wrapper.git
+       update=yes

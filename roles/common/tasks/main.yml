@@ -1,7 +1,14 @@
 ---
 - name: Symlink dotfiles
-  file: src={{ ansible_env.PWD }}/dotfiles/{{ item }}
-        dest={{ ansible_user_dir }}/.{{ item }}
+  file: src={{ ansible_env.PWD }}/files/{{ item }}
+        dest={{ ansible_user_dir }}/{{ item }}
         state=link
         force=yes
-  with_lines: ls {{ ansible_env.PWD }}/dotfiles/
+  with_items:
+    - .gitignore
+    - .gitconfig
+    - .git-commit-template.txt
+
+- include: emacs.yml
+- include: fish.yml
+- include: nvm.yml

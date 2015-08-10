@@ -1,0 +1,43 @@
+---
+- name: Oh My Fish
+  git: dest={{ ansible_user_dir }}/.oh-my-fish
+       repo=https://github.com/oh-my-fish/oh-my-fish.git
+       update=yes
+
+- name: Fish config directories
+  file: path={{ ansible_user_dir }}/.config/fish/functions
+        state=directory
+
+- name: Fish Config
+  file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
+        dest={{ ansible_user_dir }}/.config/fish/config.fish
+        state=link
+        force=yes
+
+- name: Fish user key bindings
+  file: src={{ ansible_env.PWD }}/files/config/fish/functions/fish_user_key_bindings.fish
+        dest={{ ansible_user_dir }}/.config/fish/functions/fish_user_key_bindings.fish
+        state=link
+        force=yes
+
+- name: Clone re-search
+  git: dest={{ ansible_user_dir }}/src/re-search
+       repo=https://github.com/jbonjean/re-search.git
+       update=yes
+
+- name: Build re-search
+  command: make
+           chdir={{ ansible_user_dir }}/src/re-search
+           creates=re-search
+
+- name: Link re-search executable
+  file: src={{ ansible_user_dir }}/src/re-search/re-search
+        dest={{ ansible_user_dir }}/bin/re-search
+        state=link
+        force=yes
+
+- name: Link re_search fish function
+  file: src={{ ansible_user_dir }}/src/re-search/re_search.fish
+        dest={{ ansible_user_dir }}/.config/fish/functions/re_search.fish
+        state=link
+        force=yes
