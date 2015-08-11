@@ -1,0 +1,9 @@
+---
+- name: Tmux plugins folder
+  file: path={{ ansible_user_dir }}/.tmux/plugins
+        state=directory
+
+- name: Clone TPM
+  git: dest={{ ansible_user_dir }}/.tmux/plugins/tpm
+       repo=https://github.com/tmux-plugins/tpm.git
+       update=yes

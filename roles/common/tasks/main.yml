@@ -8,7 +8,9 @@
     - .gitignore
     - .gitconfig
     - .git-commit-template.txt
+    - .tmux.conf
 
 - include: emacs.yml
 - include: fish.yml
 - include: nvm.yml
+- include: tmux.yml
