@@ -14,6 +14,10 @@ Plugin 'theme'
 
 set PATH ~/bin /usr/local/bin /usr/local/sbin $PATH
 
-source ~/.config/fish/nvm-wrapper/nvm.fish
+function nvm
+  bass source ~/.nvm/nvm.sh ';' nvm $argv
+end
+
+nvm use default
 
 alias g "git"

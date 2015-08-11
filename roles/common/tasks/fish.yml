@@ -41,3 +41,17 @@
         dest={{ ansible_user_dir }}/.config/fish/functions/re_search.fish
         state=link
         force=yes
+
+- name: Clone Bass
+  git: dest={{ ansible_user_dir }}/src/bass
+       repo=https://github.com/edc/bass.git
+       update=yes
+
+- name: Install Bass
+  file: src={{ ansible_user_dir }}/src/bass/{{ item }}
+        dest={{ ansible_user_dir }}/.config/fish/functions/{{ item }}
+        state=link
+        force=yes
+  with_items:
+    - __bass.py
+    - bass.fish
