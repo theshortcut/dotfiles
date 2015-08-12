@@ -1,0 +1,9 @@
+---
+- name: Vundle directory present
+  file: path={{ ansible_user_dir }}/.vim/bundle
+        state=directory
+
+- name: Clone Vundle
+  git: dest={{ ansible_user_dir }}/.vim/bundle/Vundle.vim
+       repo=https://github.com/VundleVim/Vundle.vim.git
+       update=yes

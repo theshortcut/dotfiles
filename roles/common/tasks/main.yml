@@ -9,8 +9,10 @@
     - .gitconfig
     - .git-commit-template.txt
     - .tmux.conf
+    - .vimrc
 
 - include: emacs.yml
 - include: fish.yml
 - include: nvm.yml
 - include: tmux.yml
+- include: vim.yml
