@@ -17,6 +17,7 @@
     - the_silver_searcher
     - tmux
     - watchman
+    - thefuck
 
 - name: Cleanup Homebrew
   command: brew cleanup

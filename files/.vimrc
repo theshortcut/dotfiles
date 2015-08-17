@@ -26,6 +26,7 @@ Plugin 'honza/vim-snippets'
 call vundle#end()
 filetype plugin indent on
 
+set shell=/bin/bash
 set backspace=indent,eol,start
 set nobackup
 set nowritebackup

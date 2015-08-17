@@ -12,12 +12,24 @@ set fish_path $HOME/.oh-my-fish
 Theme 'bobthefish'
 Plugin 'theme'
 
-set PATH ~/bin /usr/local/bin /usr/local/sbin $PATH
+set GOPATH ~/.go
+set PATH ~/bin /usr/local/bin /usr/local/sbin $GOPATH/bin $PATH
 
 function nvm
   bass source ~/.nvm/nvm.sh ';' nvm $argv
 end
 
-nvm use default
-
 alias g "git"
+
+set TF_ALIAS fuck
+function fuck -d 'Correct your previous console command'
+    set -l exit_code $status
+    set -l eval_script (mktemp 2>/dev/null ; or mktemp -t 'thefuck')
+    set -l fucked_up_commandd $history[1]
+    thefuck $fucked_up_commandd > $eval_script
+    . $eval_script
+    rm $eval_script
+    if test $exit_code -ne 0
+        history --delete $fucked_up_commandd
+    end
+end
