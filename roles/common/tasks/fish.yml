@@ -1,7 +1,7 @@
 ---
 - name: Oh My Fish
   git: dest={{ ansible_user_dir }}/.oh-my-fish
-       repo=https://github.com/oh-my-fish/oh-my-fish.git
+       repo=https://github.com/fish-shell/oh-my-fish.git
        update=yes
 
 - name: Fish config directories
@@ -11,6 +11,12 @@
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
         dest={{ ansible_user_dir }}/.config/fish/config.fish
+        state=link
+        force=yes
+
+- name: Oh My Fish Config
+  file: src={{ ansible_env.PWD }}/files/config/omf
+        dest={{ ansible_user_dir }}/.config/omf
         state=link
         force=yes
 
