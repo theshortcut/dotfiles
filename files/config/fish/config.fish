@@ -13,11 +13,16 @@ Theme 'bobthefish'
 Plugin 'theme'
 
 set GOPATH ~/.go
-set PATH ~/bin /usr/local/bin /usr/local/sbin $GOPATH/bin $PATH
+set NVM_SYMLINK_CURRENT true
 
 function nvm
   bass source ~/.nvm/nvm.sh ';' nvm $argv
 end
+
+nvm use --silent default
+
+set PATH ~/bin $NVM_BIN /usr/local/bin /usr/local/sbin $GOPATH/bin $PATH
+
 
 alias g "git"
 
