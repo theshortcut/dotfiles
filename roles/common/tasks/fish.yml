@@ -1,7 +1,7 @@
 ---
 - name: Oh My Fish
   git: dest={{ ansible_user_dir }}/.oh-my-fish
-       repo=https://github.com/fish-shell/oh-my-fish.git
+       repo=https://github.com/oh-my-fish/oh-my-fish.git
        update=yes
 
 - name: Fish config directories
