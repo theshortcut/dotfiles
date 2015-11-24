@@ -54,7 +54,7 @@
        update=yes
 
 - name: Install Bass
-  file: src={{ ansible_user_dir }}/src/bass/{{ item }}
+  file: src={{ ansible_user_dir }}/src/bass/functions/{{ item }}
         dest={{ ansible_user_dir }}/.config/fish/functions/{{ item }}
         state=link
         force=yes
