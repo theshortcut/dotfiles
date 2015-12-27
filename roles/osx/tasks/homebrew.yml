@@ -18,6 +18,7 @@
     - tmux
     - watchman
     - thefuck
+    - grc
 
 - name: Cleanup Homebrew
   command: brew cleanup

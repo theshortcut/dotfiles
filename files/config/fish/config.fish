@@ -1,8 +1,8 @@
 # Path to your oh-my-fish.
-set -g OMF_PATH $HOME/.oh-my-fish
+set -gx OMF_PATH $HOME/.oh-my-fish
 
 # Path to your oh-my-fish configuration.
-set -g OMF_CONFIG $HOME/.config/omf
+set -gx OMF_CONFIG $HOME/.config/omf
 
 ### Configuration required to load oh-my-fish ###
 # Note: Only add configurations that are required to be set before oh-my-fish is loaded.
@@ -22,5 +22,10 @@ end
 nvm use --silent default
 
 set PATH ~/bin $NVM_BIN /usr/local/bin /usr/local/sbin $GOPATH/bin $PATH
+
+# SpinGo
+for file in $HOME/.bash.d/*.bash
+  bass source $file
+end
 
 alias g "git"
