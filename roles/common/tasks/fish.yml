@@ -1,22 +1,39 @@
 ---
-- name: Oh My Fish
-  git: dest={{ ansible_user_dir }}/.oh-my-fish
-       repo=https://github.com/oh-my-fish/oh-my-fish.git
-       update=yes
-
 - name: Fish config directories
   file: path={{ ansible_user_dir }}/.config/fish/functions
         state=directory
 
+- name: Clone Fisherman
+  git: dest={{ ansible_user_dir }}/src/fisherman
+       repo=https://github.com/fisherman/fisherman.git
+       depth=1
+       force=true
+       update=yes
+  register: fisherman_status
+
+- name: Install Fisherman
+  command: make
+           chdir={{ ansible_user_dir }}/src/fisherman
+  when: fisherman_status.changed
+  register: fisherman_install_status
+
+- name: Install Fisherman Plugins
+  shell: fisher install {{ item }} \nend
+  args:
+    executable: /usr/local/bin/fish
+    creates: ~/.config/fisherman/cache/{{item}}
+  with_items:
+    - bass
+    - bobthefish
+    - fasd
+    - fzf
+    - grc
+    - thefuck
+  when: fisherman_install_status.changed
+
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
         dest={{ ansible_user_dir }}/.config/fish/config.fish
-        state=link
-        force=yes
-
-- name: Oh My Fish Config
-  file: src={{ ansible_env.PWD }}/files/config/omf
-        dest={{ ansible_user_dir }}/.config/omf
         state=link
         force=yes
 
@@ -25,39 +42,3 @@
         dest={{ ansible_user_dir }}/.config/fish/functions/fish_user_key_bindings.fish
         state=link
         force=yes
-
-- name: Clone re-search
-  git: dest={{ ansible_user_dir }}/src/re-search
-       repo=https://github.com/jbonjean/re-search.git
-       update=yes
-
-- name: Build re-search
-  command: make
-           chdir={{ ansible_user_dir }}/src/re-search
-           creates=re-search
-
-- name: Link re-search executable
-  file: src={{ ansible_user_dir }}/src/re-search/re-search
-        dest={{ ansible_user_dir }}/bin/re-search
-        state=link
-        force=yes
-
-- name: Link re_search fish function
-  file: src={{ ansible_user_dir }}/src/re-search/re_search.fish
-        dest={{ ansible_user_dir }}/.config/fish/functions/re_search.fish
-        state=link
-        force=yes
-
-- name: Clone Bass
-  git: dest={{ ansible_user_dir }}/src/bass
-       repo=https://github.com/edc/bass.git
-       update=yes
-
-- name: Install Bass
-  file: src={{ ansible_user_dir }}/src/bass/functions/{{ item }}
-        dest={{ ansible_user_dir }}/.config/fish/functions/{{ item }}
-        state=link
-        force=yes
-  with_items:
-    - __bass.py
-    - bass.fish

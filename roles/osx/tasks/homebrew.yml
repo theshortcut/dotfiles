@@ -19,6 +19,8 @@
     - watchman
     - thefuck
     - grc
+    - fasd
+    - fzf
 
 - name: Cleanup Homebrew
   command: brew cleanup
