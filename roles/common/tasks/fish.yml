@@ -9,36 +9,33 @@
        depth=1
        force=true
        update=yes
-  register: fisherman_status
 
 - name: Install Fisherman
-  command: make
-           chdir={{ ansible_user_dir }}/src/fisherman
-  when: fisherman_status.changed
-  register: fisherman_install_status
+  file: src={{ ansible_user_dir}}/src/fisherman/fisher.fish
+        dest={{ ansible_user_dir }}/.config/fish/functions/fisher.fish
+        state=link
+        force=yes
 
 - name: Install Fisherman Plugins
-  shell: fisher install {{ item }} \nend
+  shell: fisher list | grep '{{ item.name }}'; or fisher install {{ item.repo }}
   args:
     executable: /usr/local/bin/fish
-    creates: ~/.config/fisherman/cache/{{item}}
   with_items:
-    - bass
-    - bobthefish
-    - fasd
-    - fzf
-    - grc
-    - thefuck
-  when: fisherman_install_status.changed
+    - name: bass
+      repo: edc/bass
+    - name: bobthefish
+      repo: oh-my-fish/theme-bobthefish
+    - name: fasd
+      repo: oh-my-fish/plugin-fasd
+    - name: fzf
+      repo: fisherman/fzf
+    - name: grc
+      repo: fisherman/grc
+    - name: thefuck
+      repo: oh-my-fish/plugin-thefuck
 
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
         dest={{ ansible_user_dir }}/.config/fish/config.fish
-        state=link
-        force=yes
-
-- name: Fish user key bindings
-  file: src={{ ansible_env.PWD }}/files/config/fish/functions/fish_user_key_bindings.fish
-        dest={{ ansible_user_dir }}/.config/fish/functions/fish_user_key_bindings.fish
         state=link
         force=yes
