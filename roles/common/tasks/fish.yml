@@ -33,6 +33,8 @@
       repo: fisherman/grc
     - name: thefuck
       repo: oh-my-fish/plugin-thefuck
+    - name: nvm
+      repo: fisherman/nvm
 
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
