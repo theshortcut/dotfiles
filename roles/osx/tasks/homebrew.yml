@@ -22,5 +22,14 @@
     - fasd
     - fzf
 
+- name: Symlink coreutils
+  file: src=/usr/local/bin/{{ item.src }}
+        dest=/usr/local/bin/{{ item.dest }}
+        state=link
+        force=yes
+  with_items:
+    - src: gtac
+      dest: tac
+
 - name: Cleanup Homebrew
   command: brew cleanup
