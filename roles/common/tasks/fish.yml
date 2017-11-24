@@ -31,10 +31,8 @@
       repo: fisherman/fzf
     - name: grc
       repo: fisherman/grc
-    - name: nvm
-      repo: fisherman/nvm
-    - name: emacs
-      repo: omf/emacs
+    - name: asdf
+      repo: doughsay/omf-asdf
 
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish

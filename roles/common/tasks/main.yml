@@ -10,9 +10,10 @@
     - .git-commit-template.txt
     - .tmux.conf
     - .vimrc
+    - .asdfrc
 
-- include: emacs.yml
-- include: fish.yml
-- include: nvm.yml
-- include: tmux.yml
-- include: vim.yml
+- import_tasks: emacs.yml
+- import_tasks: fish.yml
+- import_tasks: asdf.yml
+- import_tasks: tmux.yml
+- import_tasks: vim.yml

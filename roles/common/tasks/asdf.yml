@@ -1,0 +1,5 @@
+---
+- name: Install ASDF
+  git: dest={{ ansible_user_dir }}/.asdf
+       repo=https://github.com/asdf-vm/asdf.git
+       refspec=v0.4.0
