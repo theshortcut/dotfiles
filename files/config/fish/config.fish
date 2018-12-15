@@ -15,6 +15,8 @@ alias g "git"
 set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 set -g theme_color_scheme base16-dark
+set -g theme_display_ruby no
+set -g theme_display_docker_machine yes
 
 # Editor
 set -x EDITOR code

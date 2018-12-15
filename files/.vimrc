@@ -13,6 +13,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'chriskempson/base16-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'Valloric/YouCompleteMe'
@@ -48,7 +49,7 @@ set expandtab " spaces ftw
 set vb t_vb= " disable visual bell
 set list! " show invisibles
 set listchars=tab:▸\ ,trail:·,eol:¬ " textmate style invisible chars
-colorscheme solarized
+colorscheme base16-default-dark
 
 if &t_Co > 2 || has("gui_running")
   syntax on

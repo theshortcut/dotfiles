@@ -3,24 +3,25 @@
   homebrew: update_homebrew=yes
 
 - name: Install Homebrew formula
-  homebrew: name={{ item }} state=latest
-  with_items:
-    - git
-    - wget
-    - curl
-    - coreutils
-    - emacs
-    - fish
-    - legit
-    - jq
-    - reattach-to-user-namespace
-    - the_silver_searcher
-    - tmux
-    - watchman
-    - thefuck
-    - grc
-    - fasd
-    - fzf
+  homebrew:
+    name:
+      - git
+      - wget
+      - curl
+      - coreutils
+      - emacs
+      - fish
+      - legit
+      - jq
+      - reattach-to-user-namespace
+      - the_silver_searcher
+      - tmux
+      - watchman
+      - thefuck
+      - grc
+      - fasd
+      - fzf
+    state: latest
 
 - name: Symlink coreutils
   file: src=/usr/local/bin/{{ item.src }}

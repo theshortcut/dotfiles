@@ -28,6 +28,7 @@
 	graft = !legit graft
 	resync = !legit resync
 	aliases = config --get-regexp ^alias\\.
+	undo = !legit undo
 [branch]
 	autosetupmerge = true
 [gui]
@@ -52,15 +53,17 @@
 [user]
 	name = Clayton Ferris
 	email = cferris@gmail.com
+	signingkey = C83A4D56FF65A944
 [core]
-	excludesfile = /Users/clay/.gitignore
-	editor = vim
+	excludesfile = /Users/cferris/.gitignore_global
+	editor = code --wait
 [push]
 	default = current
 [alias]
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -69,4 +72,10 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [commit]
-	template = /Users/clay/.git-commit-template.txt
+	template = /Users/cferris/.git-commit-template.txt
+	gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 

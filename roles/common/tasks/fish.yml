@@ -1,23 +1,22 @@
----
 - name: Fish config directories
   file: path={{ ansible_user_dir }}/.config/fish/functions
-        state=directory
+    state=directory
 
 - name: Clone Fisherman
   git: dest={{ ansible_user_dir }}/src/fisherman
-       repo=https://github.com/fisherman/fisherman.git
-       depth=1
-       force=true
-       update=yes
+    repo=https://github.com/fisherman/fisherman.git
+    depth=1
+    force=true
+    update=yes
 
 - name: Install Fisherman
   file: src={{ ansible_user_dir}}/src/fisherman/fisher.fish
-        dest={{ ansible_user_dir }}/.config/fish/functions/fisher.fish
-        state=link
-        force=yes
+    dest={{ ansible_user_dir }}/.config/fish/functions/fisher.fish
+    state=link
+    force=yes
 
 - name: Install Fisherman Plugins
-  shell: fisher list | grep '{{ item.name }}'; or fisher install {{ item.repo }}
+  shell: fisher ls | grep '{{ item.name }}'; or fisher add {{ item.repo }}
   args:
     executable: /usr/local/bin/fish
   with_items:
@@ -36,6 +35,6 @@
 
 - name: Fish Config
   file: src={{ ansible_env.PWD }}/files/config/fish/config.fish
-        dest={{ ansible_user_dir }}/.config/fish/config.fish
-        state=link
-        force=yes
+    dest={{ ansible_user_dir }}/.config/fish/config.fish
+    state=link
+    force=yes

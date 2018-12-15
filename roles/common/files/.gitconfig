@@ -43,7 +43,7 @@
 	email = cferris@gmail.com
 [core]
 	excludesfile = /Users/clay/.gitignore
-	editor = vim
+	editor = code
 [push]
 	default = current
 [alias]
