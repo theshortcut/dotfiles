@@ -27,4 +27,4 @@ set -g theme_display_ruby no
 set -g theme_display_docker_machine yes
 
 # Editor
-set -x EDITOR code
+set -x EDITOR nvim

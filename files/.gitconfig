@@ -56,14 +56,11 @@
 	signingkey = C83A4D56FF65A944
 [core]
 	excludesfile = /Users/cferris/.gitignore_global
-	editor = code --wait
 [push]
 	default = current
 [alias]
 [diff]
     tool = default-difftool
-[difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -73,9 +70,13 @@
 	smudge = git media smudge %f
 [commit]
 	template = /Users/cferris/.git-commit-template.txt
-	gpgsign = true
+	gpgSign = true
 [gpg]
-	program = /usr/local/bin/gpg
+	program = /usr/local/bin/krgpg
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
+[tag]
+	forceSignAnnotated = true
+[pull]
+	ff = only
