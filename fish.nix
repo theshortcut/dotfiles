@@ -1,4 +1,4 @@
-{
+{ pkgs, lib, ...}: {
   programs.fish = {
     enable = true;
     loginShellInit = ''
@@ -10,6 +10,17 @@
         fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       end
       '';
+    shellAliases = with pkgs; {
+      ll = "${pkgs.exa}/bin/exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";
+      ls = "${pkgs.exa}/bin/exa -lF --group-directories-first --icons -a";
+      g = "${pkgs.git}/bin/git";
+      cat = "${pkgs.bat}/bin/bat --paging=never";
+      nvim = "${pkgs.neovim}/bin/nvim";
+      vim = "${pkgs.neovim}/bin/nvim";
+    };
+    shellInit = ''
+      set fish_greeting
+    '';
     plugins = [
       {
         name = "bass";
@@ -28,6 +39,16 @@
           repo = "plugin-foreign-env";
           rev = "3ee95536106c11073d6ff466c1681cde31001383";
           sha256 = "vyW/X2lLjsieMpP9Wi2bZPjReaZBkqUbkh15zOi8T4Y=";
+        };
+      }
+
+      {
+        name = "forgit";
+        src = pkgs.fetchFromGitHub {
+          owner = "wfxr";
+          repo = "forgit";
+          rev = "065f7841f334b8707a49ac30d19370aa859db2ed";
+          sha256 = "/cqDhHilbMSrzwip+2CGJ9Il4wsx5skyMbqC98hewdc=";
         };
       }
     ];
