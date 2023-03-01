@@ -12,6 +12,7 @@
     pkgs.jq
     pkgs.neovim
     pkgs.ripgrep
+    pkgs.rustup
     pkgs.starship
     pkgs.tmux
     pkgs.watchman
