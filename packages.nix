@@ -15,7 +15,6 @@
     pkgs.rustup
     pkgs.starship
     pkgs.tmux
-    pkgs.watchman
     pkgs.wget
   ];
 }

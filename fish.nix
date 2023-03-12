@@ -10,7 +10,7 @@
         fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       end
       '';
-    shellAliases = with pkgs; {
+    shellAliases = {
       ll = "${pkgs.exa}/bin/exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";
       ls = "${pkgs.exa}/bin/exa -lF --group-directories-first --icons -a";
       g = "${pkgs.git}/bin/git";
@@ -20,6 +20,9 @@
     };
     shellInit = ''
       set fish_greeting
+    '';
+    interactiveShellInit = ''
+      fnm env --use-on-cd | source
     '';
     plugins = [
       {
