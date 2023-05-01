@@ -19,7 +19,7 @@ Dotfiles, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://gi
 1. Go inside your `~/.config` directory and clone this repo:
    ```bash
    $ mkdir ~/.config && cd ~/.config && \
-     git clone https://github.com/Arkham/dotfiles.nix.git nixpkgs && cd nixpkgs
+     git clone https://github.com/theshortcut/dotfiles.git home-manager && cd home-manager
    ```
 1. Run the flake and activate your env:
    ```bash
