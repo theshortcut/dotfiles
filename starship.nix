@@ -3,6 +3,7 @@
     enable = true;
     settings = {
       format = "[](#A277FF)$directory[](bg:#FF6767 fg:#A277FF)$git_branch$git_commit$git_state$git_metrics$git_status[](fg:#FF6767 bg:#61FFCA)$nodejs$rust$terraform[](fg:#61FFCA bg:#82E2FF)$package[ ](fg:#82E2FF)$fill[](#6D6D6D)$time[](#6D6D6D)$line_break$jobs$status$shell$character";
+      command_timeout = 1000;
       directory = {
         style = "bg:#A277FF fg:#15141B";
         format = "[ $path ]($style)";
