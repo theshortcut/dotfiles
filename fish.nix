@@ -23,7 +23,7 @@
     shellInit = ''
       set fish_greeting
       set -gx PNPM_HOME $HOME/.pnpm-global
-      set -gx PATH $PATH $HOME/.pnpm-global/binc
+      set -gx PATH $PATH $PNPM_HOME
     '';
     plugins = [
       {
