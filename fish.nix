@@ -13,8 +13,8 @@
       fnm env --use-on-cd | source
       '';
     shellAliases = {
-      ll = "${pkgs.exa}/bin/exa -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";
-      ls = "${pkgs.exa}/bin/exa -lF --group-directories-first --icons -a";
+      ll = "${pkgs.eza}/bin/eza -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";
+      ls = "${pkgs.eza}/bin/eza -lF --group-directories-first --icons -a";
       g = "${pkgs.git}/bin/git";
       cat = "${pkgs.bat}/bin/bat --paging=never";
       nvim = "${pkgs.neovim}/bin/nvim";

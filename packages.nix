@@ -4,7 +4,7 @@
     pkgs.coreutils
     pkgs.curl
     pkgs.delta
-    pkgs.exa
+    pkgs.eza
     pkgs.fish
     pkgs.fnm
     pkgs.fzf
