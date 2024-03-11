@@ -31,8 +31,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "edc";
           repo = "bass";
-          rev = "2fd3d2157d5271ca3575b13daec975ca4c10577a";
-          sha256 = "fl4/Pgtkojk5AE52wpGDnuLajQxHoVqyphE90IIPYFU=";
+          rev = "79b62958ecf4e87334f24d6743e5766475bcf4d0";
+          sha256 = "3d/qL+hovNA4VMWZ0n1L+dSM1lcz7P5CQJyy+/8exTc=";
         };
       }
 
@@ -41,8 +41,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "oh-my-fish";
           repo = "plugin-foreign-env";
-          rev = "3ee95536106c11073d6ff466c1681cde31001383";
-          sha256 = "vyW/X2lLjsieMpP9Wi2bZPjReaZBkqUbkh15zOi8T4Y=";
+          rev = "7f0cf099ae1e1e4ab38f46350ed6757d54471de7";
+          sha256 = "4+k5rSoxkTtYFh/lEjhRkVYa2S4KEzJ/IJbyJl+rJjQ=";
         };
       }
 
@@ -51,8 +51,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "wfxr";
           repo = "forgit";
-          rev = "065f7841f334b8707a49ac30d19370aa859db2ed";
-          sha256 = "/cqDhHilbMSrzwip+2CGJ9Il4wsx5skyMbqC98hewdc=";
+          rev = "86dfdf89da6b297f9010d9a6105325f57aa30824";
+          sha256 = "fksqsSRROXkgVpt4G54t8KiC7kuEopUzgkv+kllnb/4=";
         };
       }
     ];
