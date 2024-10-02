@@ -49,7 +49,7 @@
 [user]
 	name = Clayton Ferris
 	email = cferris@gmail.com
-  signingkey = 23A39664D52E7869F2C023A5564120CCAAF62603
+  signingkey = 27B8B14D04F97DD1
 [core]
 	excludesfile = /Users/cferris/.gitignore_global
   pager = delta

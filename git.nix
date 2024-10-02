@@ -1,6 +1,6 @@
 {
   programs.git = {
     enable = true;
-    includes = [{ path = "~/.config/nixpkgs/gitconfig"; }];
+    includes = [{ path = "~/.config/home-manager/gitconfig"; }];
   };
 }

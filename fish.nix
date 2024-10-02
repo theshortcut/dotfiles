@@ -18,12 +18,11 @@
       g = "${pkgs.git}/bin/git";
       cat = "${pkgs.bat}/bin/bat --paging=never";
       nvim = "${pkgs.neovim}/bin/nvim";
-      vim = "${pkgs.neovim}/bin/nvim";
     };
     shellInit = ''
       set fish_greeting
       set -gx PNPM_HOME $HOME/.pnpm-global
-      set -gx PATH $PATH $HOME/.cargo/bin $PNPM_HOME
+      set -gx PATH $PATH $HOME/.cargo/bin $PNPM_HOME /opt/homebrew/bin/
     '';
     plugins = [
       {

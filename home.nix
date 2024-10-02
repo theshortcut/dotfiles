@@ -1,7 +1,7 @@
 { config, pkgs, lib, ...}: {
-  home.username = "cferris";
-  home.homeDirectory = "/Users/cferris";
+  home.username = "clay";
+  home.homeDirectory = "/Users/clay";
   home.stateVersion = "22.11";
   programs.home-manager.enable = true;
-  imports = [ ./packages.nix ./fish.nix ./git.nix ./nvim.nix ./starship.nix ./tmux.nix ./rest.nix ];
+  imports = [ ./packages.nix ./fish.nix ./git.nix ./kitty.nix ./nvim.nix ./starship.nix ./tmux.nix ./rest.nix ];
 }

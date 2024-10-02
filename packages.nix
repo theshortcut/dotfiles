@@ -9,8 +9,8 @@
     pkgs.fnm
     pkgs.fzf
     pkgs.git
+    pkgs.gnupg
     pkgs.jq
-    pkgs.neovim
     pkgs.ripgrep
     pkgs.rustup
     pkgs.starship

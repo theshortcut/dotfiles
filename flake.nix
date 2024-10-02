@@ -16,12 +16,12 @@
   };
 
   outputs = { nixpkgs, home-manager, nix-index-database, ... }: let
-    arch = "x86_64-darwin";
+    arch = "aarch64-darwin";
   in {
       defaultPackage.${arch} =
         home-manager.defaultPackage.${arch};
 
-      homeConfigurations.cferris =
+      homeConfigurations.clay =
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
           modules = [ ./home.nix ];
