@@ -9,14 +9,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
+    dagger = {
+      url = "github:dagger/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-index-database, ... }: let
+  outputs = { self, nixpkgs, home-manager, dagger, ... }: let
     arch = "aarch64-darwin";
+    daggerPkgs = dagger.packages.${arch};
   in {
       defaultPackage.${arch} =
         home-manager.defaultPackage.${arch};
@@ -25,6 +26,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
           modules = [ ./home.nix ];
+          extraSpecialArgs = {inherit daggerPkgs;};
         };
     };
 } 

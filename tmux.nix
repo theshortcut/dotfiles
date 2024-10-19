@@ -1,8 +1,11 @@
 { pkgs, ...}: {
   programs.tmux = {
     enable = true;
-    terminal = "screen-256color";
+    keyMode = "vi";
+    mouse = true;
+    escapeTime = 10;
     shell = "${pkgs.fish}/bin/fish";
+    terminal = "xterm-256color";
     plugins = with pkgs; [
       { plugin = tmuxPlugins.logging; }
       { plugin = tmuxPlugins.pain-control; }

@@ -3,7 +3,7 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     font = {
-      name = "VictorMono Nerd Font Mono";
+      name = "Iosevka Nerd Font Mono";
       size = 14;
     };
     themeFile = "tokyo_night_night";

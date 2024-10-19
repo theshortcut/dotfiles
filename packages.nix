@@ -1,9 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, daggerPkgs, ... }: {
   home.packages = [
     pkgs.bat
     pkgs.coreutils
+    pkgs.colima
     pkgs.curl
     pkgs.delta
+    pkgs.docker
     pkgs.eza
     pkgs.fish
     pkgs.fnm
@@ -16,5 +18,7 @@
     pkgs.starship
     pkgs.tmux
     pkgs.wget
+  ] ++ [
+    daggerPkgs.dagger
   ];
 }
