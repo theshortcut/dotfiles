@@ -15,10 +15,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, dagger, ... }: let
-    arch = "aarch64-darwin";
-    daggerPkgs = dagger.packages.${arch};
-  in {
+  outputs = { self, nixpkgs, home-manager, dagger, ... }:
+    let
+      arch = "aarch64-darwin";
+      daggerPkgs = dagger.packages.${arch};
+    in
+    {
       defaultPackage.${arch} =
         home-manager.defaultPackage.${arch};
 
@@ -26,7 +28,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
           modules = [ ./home.nix ];
-          extraSpecialArgs = {inherit daggerPkgs;};
+          extraSpecialArgs = { inherit daggerPkgs; };
         };
     };
 } 

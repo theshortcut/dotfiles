@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ...} : {
+{ lib, pkgs, config, ... }: {
   xdg.configFile.nvim = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/neovim-config/";
     recursive = true;

@@ -1,4 +1,4 @@
-{ pkgs, lib, ...}: {
+{ pkgs, lib, ... }: {
   programs.fish = {
     enable = true;
     loginShellInit = ''
@@ -11,7 +11,7 @@
       end
 
       fnm env --use-on-cd | source
-      '';
+    '';
     shellAliases = {
       ll = "${pkgs.eza}/bin/eza -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";
       ls = "${pkgs.eza}/bin/eza -lF --group-directories-first --icons -a";
