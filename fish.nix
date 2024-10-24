@@ -50,8 +50,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "wfxr";
           repo = "forgit";
-          rev = "86dfdf89da6b297f9010d9a6105325f57aa30824";
-          sha256 = "fksqsSRROXkgVpt4G54t8KiC7kuEopUzgkv+kllnb/4=";
+          rev = "60b651de7ea6143921ebd39b69150736b1985870";
+          sha256 = "8BMFL3WktkkB8m6asbNeb9swnLWi3jHo012fBXGa8ls=";
         };
       }
     ];

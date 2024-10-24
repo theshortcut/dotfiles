@@ -13,6 +13,8 @@
     pkgs.git
     pkgs.gnupg
     pkgs.jq
+    pkgs.lazygit
+    pkgs.pnpm-shell-completion
     pkgs.ripgrep
     pkgs.rustup
     pkgs.starship
