@@ -9,13 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     dagger = {
       url = "github:dagger/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, dagger, ... }:
+  outputs = { self, nixpkgs, home-manager, nix-index-database, dagger, ... }:
     let
       arch = "aarch64-darwin";
       daggerPkgs = dagger.packages.${arch};
@@ -27,7 +30,7 @@
       homeConfigurations.clay =
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
-          modules = [ ./home.nix ];
+          modules = [ nix-index-database.hmModules.nix-index ./home.nix ];
           extraSpecialArgs = { inherit daggerPkgs; };
         };
     };
