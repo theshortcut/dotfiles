@@ -34,8 +34,6 @@
 [gui]
   matchtrackingbranch = true
   pruneduringfetch = true
-  fontui = -family Tahoma -size 13 -weight normal -slant roman -underline 0 -overstrike 0
-  recentrepo = /Users/clay/src/spingo/add-event-ui
 [color]
   status = auto
   branch = auto
@@ -51,7 +49,6 @@
 	email = cferris@gmail.com
   signingkey = 27B8B14D04F97DD1
 [core]
-	excludesfile = /Users/cferris/.gitignore_global
   pager = delta
 [interactive]
   diffFilter = delta --color-only
