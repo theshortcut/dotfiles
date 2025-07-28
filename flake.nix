@@ -30,7 +30,7 @@
       homeConfigurations.clay =
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
-          modules = [ nix-index-database.hmModules.nix-index ./home.nix ];
+          modules = [ nix-index-database.homeModules.nix-index ./home.nix ];
           extraSpecialArgs = { inherit daggerPkgs; };
         };
     };
