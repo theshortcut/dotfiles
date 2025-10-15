@@ -1,5 +1,6 @@
 { pkgs, inputs, daggerPkgs, ... }: {
   home.packages = [
+    pkgs.act
     pkgs.bat
     pkgs.coreutils
     pkgs.colima
@@ -19,6 +20,7 @@
     pkgs.rustup
     pkgs.starship
     pkgs.tmux
+    pkgs.tenv
     pkgs.wget
   ] ++ [
     daggerPkgs.dagger

@@ -15,7 +15,7 @@ in {
     # adjust-box-thickness = "100%";
     # adjust-underline-thickness = "400%";
 
-    theme = "light:catppuccin-latte,dark:catppuccin-macchiato";
+    theme = "light:Catppuccin Latte,dark:Catppuccin Macchiato";
     window-theme = "system";
     window-colorspace = "display-p3";
     background-opacity = 0.9;
