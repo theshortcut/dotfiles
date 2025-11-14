@@ -18,20 +18,28 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-index-database, dagger, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nix-index-database,
+      dagger,
+      ...
+    }:
     let
       arch = "aarch64-darwin";
       daggerPkgs = dagger.packages.${arch};
     in
     {
-      defaultPackage.${arch} =
-        home-manager.defaultPackage.${arch};
+      defaultPackage.${arch} = home-manager.defaultPackage.${arch};
 
-      homeConfigurations.clay =
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${arch};
-          modules = [ nix-index-database.homeModules.nix-index ./home.nix ];
-          extraSpecialArgs = { inherit daggerPkgs; };
-        };
+      homeConfigurations.clay = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${arch};
+        modules = [
+          nix-index-database.homeModules.nix-index
+          ./home.nix
+        ];
+        extraSpecialArgs = { inherit daggerPkgs; };
+      };
     };
-} 
+}

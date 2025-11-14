@@ -1,9 +1,8 @@
-{ config, pkgs, lib, ... }:
-
+{ lib, ... }:
 let
   inherit (lib.generators) toKeyValue mkKeyValueDefault;
-
-in {
+in
+{
   xdg.configFile."ghostty/config".text = toKeyValue { mkKeyValue = mkKeyValueDefault { } " = "; } {
     font-family = "Iosevka Nerd Font Mono";
     font-size = 14;
