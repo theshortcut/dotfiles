@@ -31,7 +31,7 @@
       daggerPkgs = dagger.packages.${arch};
     in
     {
-      defaultPackage.${arch} = home-manager.defaultPackage.${arch};
+      packages.${arch}.default = home-manager.packages.${arch}.default;
 
       homeConfigurations.clay = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${arch};
