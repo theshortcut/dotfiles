@@ -3,6 +3,7 @@
   home.packages = [
     pkgs.act
     pkgs.bat
+    pkgs.bun
     pkgs.coreutils
     pkgs.colima
     pkgs.curl
