@@ -7,6 +7,7 @@
   programs.neovim = {
     defaultEditor = true;
     enable = true;
+    sideloadInitLua = true;
     viAlias = true;
     vimAlias = true;
     withPython3 = false;

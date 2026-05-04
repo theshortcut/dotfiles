@@ -13,6 +13,7 @@
     pkgs.fish
     pkgs.fnm
     pkgs.fzf
+    pkgs.gh
     pkgs.git
     pkgs.gnupg
     pkgs.jujutsu
