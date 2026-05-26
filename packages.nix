@@ -17,6 +17,7 @@
     pkgs.git
     pkgs.gnupg
     pkgs.jujutsu
+    pkgs.just
     pkgs.jq
     pkgs.lazygit
     pkgs.nil
