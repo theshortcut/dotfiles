@@ -23,7 +23,7 @@
     shellInit = ''
       set fish_greeting
       set -gx PNPM_HOME $HOME/.pnpm-global
-      set -gx PATH $HOME/.cargo/bin $PNPM_HOME $HOME/.opencode/bin /opt/homebrew/bin/ $PATH
+      set -gx PATH $HOME/.cargo/bin $PNPM_HOME/bin $HOME/.opencode/bin /opt/homebrew/bin/ $PATH
     '';
     plugins = [
       {
