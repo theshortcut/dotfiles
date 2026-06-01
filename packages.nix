@@ -46,6 +46,11 @@
     pkgs.nixfmt
   ]
   ++ [
-    daggerPkgs.dagger
+    # Override `system` so dagger's callPackage doesn't read the deprecated
+    # `pkgs.system` alias (warns under nixpkgs >= 2025-10-28). Remove this
+    # `.override` once dagger fixes it upstream, or it will error.
+    (daggerPkgs.dagger.override {
+      system = pkgs.stdenv.hostPlatform.system;
+    })
   ];
 }
