@@ -1,35 +1,49 @@
 { pkgs, daggerPkgs, ... }:
 {
   home.packages = [
-    pkgs.act
-    pkgs.bat
-    pkgs.bun
-    pkgs.coreutils
-    pkgs.colima
-    pkgs.curl
-    pkgs.delta
-    pkgs.docker
-    pkgs.eza
+    # Shell & prompt
     pkgs.fish
-    pkgs.fnm
+    pkgs.starship
+    pkgs.tmux
+
+    # CLI utilities
+    pkgs.bat
+    pkgs.coreutils
+    pkgs.curl
+    pkgs.eza
     pkgs.fzf
+    pkgs.jq
+    pkgs.ripgrep
+    pkgs.wget
+
+    # Git & version control
+    pkgs.delta
     pkgs.gh
     pkgs.git
     pkgs.gnupg
     pkgs.jujutsu
-    pkgs.just
-    pkgs.jq
     pkgs.lazygit
-    pkgs.nil
-    pkgs.nixd
+
+    # Containers & CI
+    pkgs.act
+    pkgs.colima
+    pkgs.docker
+
+    # Language toolchains & package managers
+    pkgs.bun
+    pkgs.fnm
     pkgs.pnpm-shell-completion
-    pkgs.ripgrep
     pkgs.rustup
-    pkgs.starship
-    pkgs.tmux
     pkgs.tenv
     pkgs.uv
-    pkgs.wget
+
+    # Build / task runners
+    pkgs.just
+
+    # Nix tooling
+    pkgs.nil
+    pkgs.nixd
+    pkgs.nixfmt
   ]
   ++ [
     daggerPkgs.dagger

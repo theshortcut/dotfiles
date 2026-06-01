@@ -8,11 +8,9 @@
     ./fish.nix
     ./ghostty.nix
     ./git.nix
-    ./kitty.nix
     ./nvim.nix
     ./starship.nix
     ./tmux.nix
-    ./wezterm.nix
     ./rest.nix
   ];
 }

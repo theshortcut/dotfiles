@@ -27,19 +27,36 @@
       ...
     }:
     let
-      arch = "aarch64-darwin";
-      daggerPkgs = dagger.packages.${arch};
+      systems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      mkHome =
+        system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            nix-index-database.homeModules.nix-index
+            ./home.nix
+          ];
+          extraSpecialArgs = {
+            daggerPkgs = dagger.packages.${system};
+          };
+        };
     in
     {
-      packages.${arch}.default = home-manager.packages.${arch}.default;
+      packages = forAllSystems (system: {
+        default = home-manager.packages.${system}.default;
+      });
 
-      homeConfigurations.clay = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${arch};
-        modules = [
-          nix-index-database.homeModules.nix-index
-          ./home.nix
-        ];
-        extraSpecialArgs = { inherit daggerPkgs; };
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+
+      homeConfigurations = {
+        clay = mkHome "aarch64-darwin"; # default for this machine
+        "clay@aarch64-darwin" = mkHome "aarch64-darwin";
+        "clay@x86_64-darwin" = mkHome "x86_64-darwin";
       };
     };
 }

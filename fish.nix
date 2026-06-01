@@ -23,37 +23,24 @@
     shellInit = ''
       set fish_greeting
       set -gx PNPM_HOME $HOME/.pnpm-global
-      set -gx PATH $HOME/.cargo/bin $PNPM_HOME/bin $HOME/.opencode/bin /opt/homebrew/bin/ $PATH
+      set -gx PATH $HOME/.cargo/bin $PNPM_HOME/bin $HOME/.opencode/bin $PATH
+      if test -d /opt/homebrew/bin
+        fish_add_path /opt/homebrew/bin
+      end
     '';
+    # Plugin sources are pinned by nixpkgs and move with `nix flake update`.
     plugins = [
       {
         name = "bass";
-        src = pkgs.fetchFromGitHub {
-          owner = "edc";
-          repo = "bass";
-          rev = "79b62958ecf4e87334f24d6743e5766475bcf4d0";
-          sha256 = "3d/qL+hovNA4VMWZ0n1L+dSM1lcz7P5CQJyy+/8exTc=";
-        };
+        src = pkgs.fishPlugins.bass.src;
       }
-
       {
         name = "foreign-env";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "plugin-foreign-env";
-          rev = "7f0cf099ae1e1e4ab38f46350ed6757d54471de7";
-          sha256 = "4+k5rSoxkTtYFh/lEjhRkVYa2S4KEzJ/IJbyJl+rJjQ=";
-        };
+        src = pkgs.fishPlugins.foreign-env.src;
       }
-
       {
         name = "forgit";
-        src = pkgs.fetchFromGitHub {
-          owner = "wfxr";
-          repo = "forgit";
-          rev = "60b651de7ea6143921ebd39b69150736b1985870";
-          sha256 = "8BMFL3WktkkB8m6asbNeb9swnLWi3jHo012fBXGa8ls=";
-        };
+        src = pkgs.fishPlugins.forgit.src;
       }
     ];
   };
