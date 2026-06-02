@@ -21,7 +21,6 @@
     pkgs.gh
     pkgs.git
     pkgs.gnupg
-    pkgs.jujutsu
     pkgs.lazygit
 
     # Containers & CI

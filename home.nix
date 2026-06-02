@@ -8,6 +8,7 @@
     ./fish.nix
     ./ghostty.nix
     ./git.nix
+    ./jujutsu.nix
     ./nvim.nix
     ./starship.nix
     ./tmux.nix
