@@ -28,17 +28,17 @@
       bind-key -Tcopy-mode-vi 'v' send -X begin-selection
 
       # Status config
-      # Powerline glyphs:
+      # Powerline glyphs: 
       set -g status-style "fg=colour5,bg=colour238"
-      set -g status-left "#[fg=colour238,bg=colour3,bold] #h #[fg=colour3,bg=colour6]#[fg=colour238,bg=colour6] #S #[fg=colour6,bg=colour238] "
+      set -g status-left "#[fg=colour238,bg=colour3,bold] #h #[fg=colour3,bg=colour6]#[fg=colour238,bg=colour6] #S #[fg=colour6,bg=colour238] "
       set -g status-left-length 32
-      set -g status-right "#[fg=#586e75]#[fg=#002b36,bg=#586e75] %d %b %R "
+      set -g status-right "#[fg=#586e75]#[fg=#002b36,bg=#586e75] %d %b %R "
       set -g status-right-length 50
       setw -g window-status-style "fg=colour240,bg=colour238"
       setw -g window-status-current-style "fg=colour238,bg=colour238"
       setw -g window-status-separator ""
-      setw -g window-status-format "#[fg=default,bg=colour238] #I  #[fg=default]#W "
-      setw -g window-status-current-format "#[fg=colour238,bg=colour2]#[fg=colour238,bg=colour2] #I  #[bold]#W #[fg=colour2,bg=colour238,nobold]"
+      setw -g window-status-format "#[fg=default,bg=colour238] #I  #[fg=default]#W "
+      setw -g window-status-current-format "#[fg=colour238,bg=colour2]#[fg=colour238,bg=colour2] #I  #[bold]#W #[fg=colour2,bg=colour238,nobold]"
     '';
   };
 }
