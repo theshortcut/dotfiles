@@ -1,7 +1,9 @@
 {
-  home.username = "clay";
-  home.homeDirectory = "/Users/clay";
-  home.stateVersion = "22.11";
+  home = {
+    username = "clay";
+    homeDirectory = "/Users/clay";
+    stateVersion = "22.11";
+  };
   programs.home-manager.enable = true;
   imports = [
     ./packages.nix

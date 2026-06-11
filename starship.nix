@@ -46,49 +46,51 @@ in
           "Pictures" = " ";
         };
       };
+      custom = {
 
-      # jj segment — shown only in jj repos (jj root walks up from subdirs).
-      custom.jj = {
-        when = "jj root --ignore-working-copy";
-        shell = [ "sh" ];
-        command = ''
-          jj log --ignore-working-copy --no-graph --color never -r @ -T '
-            separate(" ",
-              change_id.shortest(8),
-              bookmarks.join(" "),
-              if(empty, "(empty)"),
-              if(conflict, "×conflict"),
-              if(divergent, "÷divergent"),
-            )'
-        '';
-        symbol = "jj ";
-        format = "[${rw}](fg:${col.dir} bg:${col.jj})[ $symbol$output ](bg:${col.jj} fg:${col.fg})[${rw}](fg:${col.jj} bg:${col.lang})";
-      };
+        # jj segment — shown only in jj repos (jj root walks up from subdirs).
+        jj = {
+          when = "jj root --ignore-working-copy";
+          shell = [ "sh" ];
+          command = ''
+            jj log --ignore-working-copy --no-graph --color never -r @ -T '
+              separate(" ",
+                change_id.shortest(8),
+                bookmarks.join(" "),
+                if(empty, "(empty)"),
+                if(conflict, "×conflict"),
+                if(divergent, "÷divergent"),
+              )'
+          '';
+          symbol = "jj ";
+          format = "[${rw}](fg:${col.dir} bg:${col.jj})[ $symbol$output ](bg:${col.jj} fg:${col.fg})[${rw}](fg:${col.jj} bg:${col.lang})";
+        };
 
-      # git segment — shown only in git repos that are NOT jj repos.
-      # Simpler than native git_status: branch + dirty dot + ahead/behind.
-      custom.git = {
-        when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && ! jj root --ignore-working-copy >/dev/null 2>&1";
-        shell = [ "sh" ];
-        command = ''
-          b=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
-          d=""; [ -n "$(git status --porcelain 2>/dev/null)" ] && d=" ●"
-          a=$(git rev-list --count '@{u}'..HEAD 2>/dev/null); h=$(git rev-list --count HEAD..'@{u}' 2>/dev/null)
-          ab=""; [ "''${a:-0}" -gt 0 ] && ab="$ab ⇡$a"; [ "''${h:-0}" -gt 0 ] && ab="$ab ⇣$h"
-          printf '%s%s%s' "$b" "$d" "$ab"
-        '';
-        symbol = "${gitSym} ";
-        format = "[${rw}](fg:${col.dir} bg:${col.git})[ $symbol$output ](bg:${col.git} fg:${col.fg})[${rw}](fg:${col.git} bg:${col.lang})";
-      };
+        # git segment — shown only in git repos that are NOT jj repos.
+        # Simpler than native git_status: branch + dirty dot + ahead/behind.
+        git = {
+          when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && ! jj root --ignore-working-copy >/dev/null 2>&1";
+          shell = [ "sh" ];
+          command = ''
+            b=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+            d=""; [ -n "$(git status --porcelain 2>/dev/null)" ] && d=" ●"
+            a=$(git rev-list --count '@{u}'..HEAD 2>/dev/null); h=$(git rev-list --count HEAD..'@{u}' 2>/dev/null)
+            ab=""; [ "''${a:-0}" -gt 0 ] && ab="$ab ⇡$a"; [ "''${h:-0}" -gt 0 ] && ab="$ab ⇣$h"
+            printf '%s%s%s' "$b" "$d" "$ab"
+          '';
+          symbol = "${gitSym} ";
+          format = "[${rw}](fg:${col.dir} bg:${col.git})[ $symbol$output ](bg:${col.git} fg:${col.fg})[${rw}](fg:${col.git} bg:${col.lang})";
+        };
 
-      # Fallback when in neither a git nor jj repo: just the dir→lang wedge,
-      # so the angled chain stays connected. `true` emits no output but the
-      # module still renders its format (the wedge) when `when` passes.
-      custom.novcs = {
-        when = "! { git rev-parse --is-inside-work-tree >/dev/null 2>&1 || jj root --ignore-working-copy >/dev/null 2>&1; }";
-        shell = [ "sh" ];
-        command = "true";
-        format = "[${rw}](fg:${col.dir} bg:${col.lang})";
+        # Fallback when in neither a git nor jj repo: just the dir→lang wedge,
+        # so the angled chain stays connected. `true` emits no output but the
+        # module still renders its format (the wedge) when `when` passes.
+        novcs = {
+          when = "! { git rev-parse --is-inside-work-tree >/dev/null 2>&1 || jj root --ignore-working-copy >/dev/null 2>&1; }";
+          shell = [ "sh" ];
+          command = "true";
+          format = "[${rw}](fg:${col.dir} bg:${col.lang})";
+        };
       };
       nodejs = {
         style = "bg:#61FFCA fg:#15141B";
