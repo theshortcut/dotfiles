@@ -12,7 +12,6 @@
       end
 
       fnm env --use-on-cd | source
-      devenv hook fish | source
     '';
     shellAliases = {
       ll = "${pkgs.eza}/bin/eza -lF --color-scale --no-user --no-time --no-permissions --group-directories-first --icons -a";

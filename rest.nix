@@ -4,6 +4,7 @@
     nix-index-database.comma.enable = true;
     nix-index.enable = true;
     direnv.enable = true;
+    devenv.enable = true;
     eza.enable = true;
     zoxide.enable = true;
     yt-dlp.enable = true;

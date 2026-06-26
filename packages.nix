@@ -30,7 +30,6 @@
 
     # Language toolchains & package managers
     pkgs.bun
-    pkgs.devenv
     pkgs.fnm
     pkgs.pnpm-shell-completion
     pkgs.rustup
