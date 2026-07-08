@@ -10,6 +10,7 @@
     pkgs.bat
     pkgs.coreutils
     pkgs.curl
+    pkgs.google-cloud-sdk
     pkgs.eza
     pkgs.fzf
     pkgs.jq
