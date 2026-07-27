@@ -13,6 +13,7 @@
     pkgs.google-cloud-sdk
     pkgs.eza
     pkgs.fzf
+    pkgs.herdr
     pkgs.jq
     pkgs.ripgrep
     pkgs.wget
