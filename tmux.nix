@@ -17,7 +17,9 @@
       # workaround https://github.com/nix-community/home-manager/issues/5952
       set -gu default-command
       set -g default-shell "$SHELL"
+
       set -g extended-keys on
+      set -g extended-keys-format csi-u
 
       # True color (24-bit) passthrough for the outer terminal (Ghostty).
       # tmux advertises tmux-256color internally (see `terminal`); this tells
