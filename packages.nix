@@ -11,6 +11,7 @@
     pkgs.coreutils
     pkgs.curl
     pkgs.google-cloud-sdk
+    pkgs.dua
     pkgs.eza
     pkgs.fzf
     pkgs.herdr
