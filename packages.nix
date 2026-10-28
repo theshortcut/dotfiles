@@ -8,7 +8,6 @@
 
     # CLI utilities
     pkgs.bat
-    pkgs.coreutils
     pkgs.curl
     pkgs.google-cloud-sdk
     pkgs.dua
@@ -26,10 +25,8 @@
     pkgs.gnupg
     pkgs.lazygit
 
-    # Containers & CI
+    # Containers & CI (docker: colima on macOS via darwin.nix, pacman on Arch)
     pkgs.act
-    pkgs.colima
-    pkgs.docker
 
     # Language toolchains & package managers
     pkgs.bun

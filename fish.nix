@@ -2,15 +2,8 @@
 {
   programs.fish = {
     enable = true;
+    # Nix profile setup is platform-specific (darwin.nix / linux.nix).
     loginShellInit = ''
-      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      end
-
-      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-      end
-
       fnm env --use-on-cd | source
     '';
     shellAliases = {
@@ -23,7 +16,7 @@
     shellInit = ''
       set fish_greeting
       set -gx PNPM_HOME $HOME/.pnpm-global
-      set -gx PATH $HOME/.cargo/bin $PNPM_HOME/bin $HOME/.opencode/bin $PATH
+      set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $PNPM_HOME/bin $PATH
       if test -d /opt/homebrew/bin
         fish_add_path /opt/homebrew/bin
       end

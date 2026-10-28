@@ -2,7 +2,19 @@
 
 Dotfiles, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://github.com/rycee/home-manager).
 
-## How to use
+## Layout
+
+Every module in `home.nix` is shared. Platform differences live in
+`darwin.nix` (macOS) and `linux.nix` (Arch / generic non-NixOS Linux), and
+`flake.nix` adds one of them based on the system. Settings like
+`programs.fish.loginShellInit` or `programs.ghostty.settings` merge across
+modules, so a platform file only has to add or override the parts that differ.
+
+`home-manager switch` picks `clay@<hostname>` if it exists and falls back to
+`clay` (the Mac). To add a machine, add a `"clay@<hostname>"` entry in
+`flake.nix`.
+
+## How to use (macOS)
 
 1. Install Nix:
 
@@ -38,6 +50,26 @@ Dotfiles, powered by [Nix](https://nixos.org/nix/) and [home-manager](https://gi
    ```bash
    nix flake update && home-manager switch
    ```
+
+## How to use (Arch Linux)
+
+1. Install Nix from the Arch repos, start the daemon, and enable flakes:
+
+   ```bash
+   sudo pacman -S nix
+   sudo systemctl enable --now nix-daemon.socket
+   sudo usermod -aG nix-users $USER   # then log out and back in
+   mkdir -p ~/.config/nix
+   echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+   ```
+
+1. Install the things that stay outside Nix: `sudo pacman -S fish ghostty`
+   (and `docker docker-buildx` if needed: `sudo systemctl enable --now
+   docker.socket`, `sudo usermod -aG docker $USER`). Make fish the login
+   shell with `chsh -s /usr/bin/fish`.
+
+1. Clone the repo and activate it the same way as on macOS (step 3 onward).
+   This machine's hostname must have a `clay@<hostname>` entry in `flake.nix`.
 
 ## Prerequisites / assumptions
 
