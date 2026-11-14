@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
 {
+  imports = [ ./sway.nix ];
+
   home.homeDirectory = "/home/clay";
 
   # Non-NixOS distro (Arch): exposes Nix-installed apps, fonts and man pages

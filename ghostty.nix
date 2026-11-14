@@ -15,6 +15,8 @@
       # adjust-box-thickness = "100%";
       # adjust-underline-thickness = "400%";
 
+      keybind = "performable:ctrl+v=paste_from_clipboard";
+
       theme = "light:Catppuccin Latte,dark:Catppuccin Macchiato";
       window-theme = "system";
       background-opacity = 0.9;
