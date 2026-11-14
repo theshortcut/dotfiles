@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   # Shared by window titles and the bar; installed via nerd-fonts.iosevka in linux.nix.
   fonts = {
@@ -54,6 +54,7 @@ in
       defaultWorkspace = "workspace number 1";
 
       output."*".bg = "${c.base} solid_color";
+      output.eDP-1.scale = "2";
 
       colors = {
         background = c.base;
@@ -62,6 +63,11 @@ in
         unfocused = window c.overlay0 c.text c.rosewater;
         urgent = window c.peach c.peach c.overlay0;
         placeholder = window c.overlay0 c.text c.overlay0;
+      };
+
+      input."type:touchpad" = {
+        natural_scroll = "enabled";
+        tap = "enabled";
       };
 
       keybindings = lib.mkOptionDefault {
@@ -109,7 +115,20 @@ in
     # Arch's drop-ins (systemd/dbus environment import).
     extraConfig = ''
       include /etc/sway/config.d/*
+
+      bindgesture swipe:3:left workspace next_on_output
+      bindgesture swipe:3:right workspace prev_on_output
     '';
+  };
+
+  # One cursor theme/size for sway, native Wayland apps and XWayland. Size is in logical
+  # pixels; sway multiplies by the output scale.
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+    sway.enable = true;
   };
 
   # HM only reloads sway on change when `package` is non-null; do it with the system swaymsg.
