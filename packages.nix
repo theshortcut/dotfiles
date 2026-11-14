@@ -37,6 +37,9 @@
     pkgs.tenv
     pkgs.uv
 
+    # Coding agents
+    pkgs.pi-coding-agent
+
     # Build / task runners
     pkgs.just
 
