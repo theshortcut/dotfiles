@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   # Shared by window titles and the bar; installed via nerd-fonts.iosevka in linux.nix.
   fonts = {
@@ -42,7 +42,7 @@ in
     config = {
       modifier = "Mod4";
       terminal = "ghostty";
-      menu = "wmenu-run";
+      menu = lib.getExe config.programs.fuzzel.package;
 
       inherit fonts;
       window.titlebar = true;
@@ -69,6 +69,9 @@ in
         natural_scroll = "enabled";
         tap = "enabled";
       };
+
+      # Caps Lock acts as Ctrl on every keyboard; Escape stays Escape.
+      input."type:keyboard".xkb_options = "ctrl:nocaps";
 
       keybindings = lib.mkOptionDefault {
         # Volume via PulseAudio
@@ -129,6 +132,39 @@ in
     name = "Adwaita";
     size = 24;
     sway.enable = true;
+  };
+
+  # App launcher: reads .desktop files (incl. Flatpak exports via XDG_DATA_DIRS).
+  # Fuzzel colors are RRGGBBAA without the leading #.
+  programs.fuzzel = {
+    enable = true;
+    settings =
+      let
+        hex = color: lib.removePrefix "#" color + "ff";
+      in
+      {
+        main = {
+          font = "Iosevka Nerd Font Mono:size=12";
+          terminal = "ghostty -e";
+          width = 40;
+        };
+        colors = {
+          background = hex c.base;
+          text = hex c.text;
+          prompt = hex c.overlay0;
+          placeholder = hex c.overlay0;
+          input = hex c.text;
+          match = hex c.mauve;
+          selection = hex c.surface2;
+          selection-text = hex c.text;
+          selection-match = hex c.mauve;
+          border = hex c.mauve;
+        };
+        border = {
+          width = 2;
+          radius = 0;
+        };
+      };
   };
 
   # Idle: lock at 5 min, screen off at 10 min, lock before suspend. Uses the Arch
