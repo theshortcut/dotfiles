@@ -131,6 +131,23 @@ in
     sway.enable = true;
   };
 
+  # Idle: lock at 5 min, screen off at 10 min, lock before suspend. Uses the Arch
+  # binaries since Nix's swaylock can't authenticate via PAM on non-NixOS.
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      { timeout = 300; command = "/usr/bin/swaylock -f -c 000000"; }
+      {
+        timeout = 600;
+        command = "/usr/bin/swaymsg 'output * power off'";
+        resumeCommand = "/usr/bin/swaymsg 'output * power on'";
+      }
+    ];
+    events = {
+      before-sleep = "/usr/bin/swaylock -f -c 000000";
+    };
+  };
+
   # HM only reloads sway on change when `package` is non-null; do it with the system swaymsg.
   xdg.configFile."sway/config".onChange = ''
     swaySocket="''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(/usr/bin/pgrep --uid $UID -x sway || true).sock"

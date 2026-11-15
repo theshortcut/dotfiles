@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [ ./sway.nix ];
 
@@ -22,6 +22,23 @@
       source /etc/profile.d/nix-daemon.fish
     end
   '';
+
+  # SSH agent: gnome-keyring's gcr-ssh-agent (pacman). It saves the key passphrase in the
+  # login keyring, which GDM unlocks with the login password (pam_gnome_keyring), so git
+  # pushes and SSH commit signing don't prompt after the first time.
+  # Enabling the vendor socket unit here is the declarative `systemctl --user enable`.
+  xdg.configFile."systemd/user/sockets.target.wants/gcr-ssh-agent.socket".source =
+    config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/gcr-ssh-agent.socket";
+
+  # The socket sets this in the systemd user env on start; also export it for shells.
+  home.sessionVariables.SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$UID}/gcr/ssh";
+  systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/gcr/ssh";
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings."*".AddKeysToAgent = "yes";
+  };
 
   # Ghostty comes from pacman (package = null in ghostty.nix), which already
   # ships its systemd user unit; HM can't manage one without a package.
