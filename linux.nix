@@ -40,6 +40,13 @@
     settings."*".AddKeysToAgent = "yes";
   };
 
+  # GNOME's equivalent of the sway xkb_options in sway.nix: Caps Lock as Ctrl.
+  # This replaces the whole list, so keep any existing options here.
+  dconf.settings."org/gnome/desktop/input-sources".xkb-options = [
+    "terminate:ctrl_alt_bksp"
+    "ctrl:nocaps"
+  ];
+
   # Ghostty comes from pacman (package = null in ghostty.nix), which already
   # ships its systemd user unit; HM can't manage one without a package.
   programs.ghostty.systemd.enable = false;
