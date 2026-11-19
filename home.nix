@@ -9,6 +9,7 @@
     ./fish.nix
     ./ghostty.nix
     ./git.nix
+    ./herdr.nix
     ./jujutsu.nix
     ./nvim.nix
     ./starship.nix
