@@ -9,9 +9,10 @@
     auto_switch = false
 
     [keys]
-    # Workspace navigation: direct shortcuts, no prefix needed.
-    previous_workspace = "alt+k"
-    next_workspace = "alt+j"
-    switch_workspace = "alt+1..9"
+    # Workspace navigation: prefix+J/K to step, prefix+shift+N to jump
+    # (prefix+N is taken by switch_tab).
+    previous_workspace = "prefix+shift+k"
+    next_workspace = "prefix+shift+j"
+    switch_workspace = "prefix+shift+1..9"
   '';
 }
