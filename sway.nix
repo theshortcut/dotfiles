@@ -13,10 +13,14 @@ let
     mauve = "#c6a0f6";
     red = "#ed8796";
     peach = "#f5a97f";
+    yellow = "#eed49f";
+    green = "#a6da95";
     lavender = "#b7bdf8";
     text = "#cad3f5";
     overlay0 = "#6e738d";
     surface2 = "#5b6078";
+    surface1 = "#494d64";
+    surface0 = "#363a4f";
     base = "#24273a";
     crust = "#181926";
   };
@@ -26,6 +30,16 @@ let
     inherit border text indicator;
     background = c.base;
     childBorder = border;
+  };
+
+  # i3status-rust block colors: alternating grey pills so neighbouring blocks stay
+  # distinct. Overrides idle and info only, so warning (yellow), critical (red) and
+  # charging (green) still show through.
+  pill = color: {
+    idle_bg = color;
+    idle_fg = c.text;
+    info_bg = color;
+    info_fg = c.text;
   };
 
   # Bar workspace button: border/background/text.
@@ -100,7 +114,14 @@ in
           command = "swaybar";
           inherit fonts;
           position = "top";
-          statusCommand = "while date +'%Y-%m-%d %X'; do sleep 1; done";
+          statusCommand = "${lib.getExe config.programs.i3status-rust.package} ${config.xdg.configHome}/i3status-rust/config-top.toml";
+          # Let the powerline blocks fill the full bar height, with a gap before the tray.
+          # The fixed height matches the separator glyph so the pill caps aren't cut short.
+          extraConfig = ''
+            status_padding 0
+            status_edge_padding 0
+            height 22
+          '';
           colors = {
             background = c.base;
             statusline = c.text;
@@ -122,6 +143,112 @@ in
       bindgesture swipe:3:left workspace next_on_output
       bindgesture swipe:3:right workspace prev_on_output
     '';
+  };
+
+  # Status blocks for swaybar: Catppuccin pills joined by rounded powerline separators.
+  # Battery recolors itself by charge level; the clock matches the focused workspace.
+  programs.i3status-rust = {
+    enable = true;
+    bars.top = {
+      icons = "material-nf";
+      settings.theme = {
+        theme = "plain";
+        overrides = {
+          idle_bg = c.surface0;
+          idle_fg = c.text;
+          info_bg = c.surface0;
+          info_fg = c.text;
+          good_bg = c.green;
+          good_fg = c.crust;
+          warning_bg = c.yellow;
+          warning_fg = c.crust;
+          critical_bg = c.red;
+          critical_fg = c.crust;
+          separator = ""; # nerd font U+E0B6, rounded left cap
+          end_separator = " "; # nerd font U+E0B4, rounded right cap closing the clock, then a gap before the tray
+          separator_bg = "auto";
+          separator_fg = "auto";
+        };
+      };
+      blocks = [
+        # Current MPRIS track (Spotify, browsers, mpv...) with play/pause and next buttons.
+        # Hidden when no player is running; right-click cycles between players.
+        {
+          block = "music";
+          format = "{ $icon $combo.str(max_w:30,rot_interval:0.5) $play $next |}";
+          theme_overrides = pill c.surface1;
+        }
+        # Yellow mic/camera/screen-share icons, shown only while something is capturing.
+        {
+          block = "privacy";
+          driver = [
+            { name = "v4l"; }
+            { name = "pipewire"; }
+          ];
+        }
+        # Turns yellow/red under sustained load.
+        {
+          block = "cpu";
+          interval = 2;
+          format = " $icon $utilization ";
+          theme_overrides = pill c.surface0;
+        }
+        # Shows up/down throughput; click to toggle to SSID/signal.
+        {
+          block = "net";
+          device = "^wlp";
+          format = [
+            " $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) "
+            " $icon {$ssid $signal_strength|wired} "
+          ];
+          inactive_format = " $icon off ";
+          missing_format = "";
+          theme_overrides = pill c.surface1;
+        }
+        # Scroll to change volume, right-click to mute. Uses the same PulseAudio sink as
+        # the volume keys.
+        {
+          block = "sound";
+          driver = "pulseaudio";
+          format = " $icon {$volume|muted} ";
+          headphones_indicator = true;
+          theme_overrides = pill c.surface0;
+        }
+        # Scroll to adjust; reads the same sysfs device brightnessctl writes.
+        {
+          block = "backlight";
+          format = " $icon $brightness ";
+          missing_format = "";
+          theme_overrides = pill c.surface1;
+        }
+        # Charging: green with a charging icon. On AC but full/holding: plug icon.
+        # Discharging: grey, then yellow and red as it drains (never green, so the
+        # two states can't be confused).
+        {
+          block = "battery";
+          format = " $icon $percentage ";
+          charging_format = " $icon $percentage ";
+          full_format = " 󰚥 $percentage "; # nf-md-power_plug
+          not_charging_format = " 󰚥 $percentage ";
+          missing_format = "";
+          good = 100; # only reached via charging
+          info = 60;
+          warning = 30;
+          critical = 15;
+          theme_overrides = pill c.surface0;
+        }
+        {
+          block = "time";
+          interval = 5;
+          format = " $icon $timestamp.datetime(f:'%H:%M') ";
+          # Matches the focused workspace button.
+          theme_overrides = {
+            idle_bg = c.mauve;
+            idle_fg = c.crust;
+          };
+        }
+      ];
+    };
   };
 
   # One cursor theme/size for sway, native Wayland apps and XWayland. Size is in logical
