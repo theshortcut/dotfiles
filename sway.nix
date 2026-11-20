@@ -112,15 +112,21 @@ in
       bars = [
         {
           command = "swaybar";
-          inherit fonts;
+          # 13.5pt at height 22 makes the rounded cap glyphs fill the bar edge to edge. Other
+          # sizes leave flat strips above/below the caps (12, 12.75) or give the glyph a
+          # fractional width that shows as a 1px seam beside each cap (12.5).
+          fonts = fonts // { size = 13.5; };
           position = "top";
           statusCommand = "${lib.getExe config.programs.i3status-rust.package} ${config.xdg.configHome}/i3status-rust/config-top.toml";
           # Let the powerline blocks fill the full bar height, with a gap before the tray.
-          # The fixed height matches the separator glyph so the pill caps aren't cut short.
           extraConfig = ''
             status_padding 0
             status_edge_padding 0
             height 22
+            # Tray: right-click opens the context menu (swaybar defaults it to middle-click),
+            # middle-click takes over right-click's old SecondaryActivate.
+            tray_bindsym button3 ContextMenu
+            tray_bindsym button2 SecondaryActivate
           '';
           colors = {
             background = c.base;
