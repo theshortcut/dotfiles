@@ -47,6 +47,29 @@ let
     border = c.base;
     inherit background text;
   };
+
+  # Uses the Arch binary since Nix's swaylock can't authenticate via PAM on non-NixOS.
+  lock = "/usr/bin/swaylock -f -c 000000";
+
+  # Caffeine: stop swayidle so the screen never locks or blanks, until toggled back.
+  # A bare swayidle keeps locking before suspend (e.g. lid close) while it's on.
+  # Logging out or rebooting resets it, since swayidle.service starts with the session.
+  caffeineSignal = 8; # i3status-rs refreshes the bar pill on SIGRTMIN+8
+  caffeineToggle = pkgs.writeShellScript "caffeine-toggle" ''
+    if systemctl --user is-active --quiet swayidle.service; then
+      systemctl --user stop swayidle.service
+      systemd-run --user --quiet --collect --unit=swayidle-caffeine \
+        ${lib.getExe config.services.swayidle.package} -w before-sleep '${lock}'
+    else
+      systemctl --user stop swayidle-caffeine.service 2>/dev/null
+      systemctl --user start swayidle.service
+    fi
+    # Substring match: the Nix wrapper names the process .i3status-rs-wrapped.
+    pkill -RTMIN+${toString caffeineSignal} -u "$USER" i3status-rs || true
+  '';
+  caffeineStatus = pkgs.writeShellScript "caffeine-status" ''
+    systemctl --user is-active --quiet swayidle.service || echo "󰅶" # nf-md-coffee
+  '';
 in
 {
   wayland.windowManager.sway = {
@@ -107,6 +130,9 @@ in
 
         # Screenshot
         "Print" = "exec grim";
+
+        # Caffeine: keep the screen awake (Mod4+Shift+c is sway's reload)
+        "Mod4+Shift+i" = "exec ${caffeineToggle}";
       };
 
       bars = [
@@ -191,6 +217,26 @@ in
             { name = "v4l"; }
             { name = "pipewire"; }
           ];
+        }
+        # Coffee cup while caffeine is on (Mod4+Shift+i); click it to turn it back off.
+        {
+          block = "custom";
+          command = "${caffeineStatus}";
+          format = " $text ";
+          hide_when_empty = true;
+          interval = 30;
+          signal = caffeineSignal;
+          click = [
+            {
+              button = "left";
+              cmd = "${caffeineToggle}";
+              update = true;
+            }
+          ];
+          theme_overrides = {
+            idle_bg = c.peach;
+            idle_fg = c.crust;
+          };
         }
         # Turns yellow/red under sustained load.
         {
@@ -300,12 +346,12 @@ in
       };
   };
 
-  # Idle: lock at 5 min, screen off at 10 min, lock before suspend. Uses the Arch
-  # binaries since Nix's swaylock can't authenticate via PAM on non-NixOS.
+  # Idle: lock at 5 min, screen off at 10 min, lock before suspend. Mod4+Shift+i pauses
+  # it (see caffeineToggle).
   services.swayidle = {
     enable = true;
     timeouts = [
-      { timeout = 300; command = "/usr/bin/swaylock -f -c 000000"; }
+      { timeout = 300; command = lock; }
       {
         timeout = 600;
         command = "/usr/bin/swaymsg 'output * power off'";
@@ -313,7 +359,7 @@ in
       }
     ];
     events = {
-      before-sleep = "/usr/bin/swaylock -f -c 000000";
+      before-sleep = lock;
     };
   };
 
